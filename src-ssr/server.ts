@@ -80,12 +80,19 @@ export const injectDevMiddleware = defineSsrInjectDevMiddleware(({ app }) => {
  */
 export const listen = defineSsrListen(({ app, devHttpsApp, port }) => {
   const server = devHttpsApp || app;
-  return server.listen(port, () => {
-    if (process.env.PROD) {
-      console.log('Server listening at port ' + port);
-    }
-  });
+  if (process.env.DEV) {
+    return server.listen(port, () => {
+      if (process.env.PROD) {
+        console.log('Server listening at port ' + port);
+      }
+    });
+  } else {
+    return {
+      handler: server,
+    };
+  }
 });
+
 
 /**
  * Should close the server and free up any resources.
