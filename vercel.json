@@ -8,7 +8,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/ssr/index.js"
+      "dest": "dist/ssr/api/index.js"
     }
   ]
 }
