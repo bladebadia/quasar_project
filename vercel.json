@@ -2,13 +2,13 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "vercel-quasar@2.0.0-beta.3"
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/ssr/index.js"
+      "dest": "dist/ssr/server/index.js"
     }
   ]
 }
