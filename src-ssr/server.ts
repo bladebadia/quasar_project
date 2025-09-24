@@ -9,6 +9,7 @@
  * Make sure to yarn add / npm install (in your project root)
  * anything you import here (except for express and compression).
  */
+import { createServer } from 'http';  
 import type { Server } from 'node:http';
 import compression from 'compression';
 import express from 'express';
@@ -78,19 +79,10 @@ export const injectDevMiddleware = defineSsrInjectDevMiddleware(({ app }) => {
  *
  * Can be async: defineSsrListen(async ({ app, devHttpsApp, port }) => { ... })
  */
-export const listen = defineSsrListen(({ app, devHttpsApp, port }) => {
-  const server = devHttpsApp || app;
-  if (process.env.DEV) {
-    return server.listen(port, () => {
-      if (process.env.PROD) {
-        console.log('Server listening at port ' + port);
-      }
-    });
-  } else {
-    return {
-      handler: server,
-    };
-  }
+export const listen = defineSsrListen(({ app, port }) => {
+  const server = createServer(app);
+  server.listen(port);
+  return server;
 });
 
 
